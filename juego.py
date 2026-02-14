@@ -1,4 +1,4 @@
-# #hijo prodigo
+# #hijo prodigo - delia mamani
 # nombre = input("Ingrese su nombre: ") #guardar lo que se escribe
 # #variables
 # dinero = 100
@@ -48,61 +48,110 @@
 # dignidad
 # hambre
 # arrepentimiento
-class HijoProdigo : 
+# -------------OBJETOS 
+# HijoProdigo
+
+class HijoProdigo: 
     def __init__(self, nombre):
-        self.nombre =  nombre
+        self.nombre = nombre
         self.dinero = 100
         self.dignidad = 50
         self.hambre = 0
-        self.arrepentimiento =0 
-# gastar_todo()
-# invertir()
-# ahorrar()
-# trabajar()
-# reflexionar()
+        self.arrepentimiento = 0 
+
     def gastar_todo(self):
-        self.dinero = 0
-        self.dignidad -=20
-        self.hambre += 50
-        
+        if self.dinero >= 30:
+            self.dinero -= 30
+            self.dignidad -= 10
+            self.hambre += 20
+            print("Gastaste dinero en fiestas...")
+        else:
+            print("No tienes suficiente dinero.")
+
     def invertir(self):
         self.dinero += 20
-        print(f"has invertido sabiamente tu dinero : {self.dinero}")      
+        print("Invertiste sabiamente y ganaste dinero.")
         
     def ahorrar(self):
-        self.dinero += 20
+        print("Decidiste no gastar tu dinero.")
         
     def trabajar(self):
         self.dinero += 15
+        self.hambre += 5
+        print("Trabajaste duro y ganaste dinero.")
     
     def reflexionar(self):
         if self.hambre > 40:
             self.arrepentimiento += 10
 
-jugador =  HijoProdigo(input("Ingrese su nombre: "))      #guardar lo que se escribe
+    def mostrar_estado(self):
+        print("\n--- ESTADO ACTUAL ---")
+        print("Dinero:", self.dinero)
+        print("Dignidad:", self.dignidad)
+        print("Hambre:", self.hambre)
+        print("Arrepentimiento:", self.arrepentimiento)
+        print("----------------------")
 
-print(f"{jugador.nombre} ha recibido su herencia") #100            
-print(f"Dispone de este monto: {jugador.dinero}")
-print(f"Incia con una dignidad de : {jugador.dignidad}")
-print(f"Incia con un hambre de : {jugador.hambre}")                
 
-while jugador.dinero > 0:
-    print("“Sigues viviendo lejos de casa…”")
-    # jugador.dinero -= 10  
-    jugador.gastar_todo() 
+# Crear jugador
+jugador = HijoProdigo(input("Ingrese su nombre: "))
+
+print(f"\n{jugador.nombre} ha recibido su herencia")
+print(f"Dinero inicial: {jugador.dinero}")
+print(f"Dignidad inicial: {jugador.dignidad}")
+print(f"Hambre inicial: {jugador.hambre}")
+
+# -------- BUCLE DEL JUEGO --------
+while jugador.dinero > 0 and jugador.hambre < 100:
+
+    jugador.mostrar_estado()
+
+    print("\n¿Qué deseas hacer?")
+    print("1. Gastar en fiestas")
+    print("2. Invertir")
+    print("3. Trabajar")
+    print("4. Ahorrar")
+    print("5. Salir del juego")
+
+    try:
+        opcion = int(input("Elige una opcion: "))
+    except:
+        print("Debes ingresar un número.")
+        continue
+
+    if opcion == 1:
+        jugador.gastar_todo()
+    elif opcion == 2:
+        jugador.invertir()
+    elif opcion == 3:
+        jugador.trabajar()
+    elif opcion == 4:
+        jugador.ahorrar()
+    elif opcion == 5:
+        break
+    else:
+        print("Opción inválida")
+
+    # Cada turno aumenta un poco el hambre
+    jugador.hambre += 5
+
     jugador.reflexionar()
-    
-print("El dinero se acabo")              
-print("Su nivel de arrepentimiento esta en :" , jugador.arrepentimiento)      
-                
-            
-# -----
-opcion = int(input("Elige una opcion: "))
-if opcion == 1:
-    jugador.gastar_todo()
-elif opcion == 2:
-    jugador.invertir()
-elif opcion == 3:
-    jugador.ahorrar()
+
+# -------- FINAL --------
+print("\n===== FINAL DEL JUEGO =====")
+
+if jugador.hambre >= 100:
+    print("Muriste de hambre lejos de casa...")
+elif jugador.dinero <= 0:
+    print("Se acabó todo tu dinero.")
 else:
-    print("Esta opcion es invalida")   
+    print("Decidiste abandonar tu vida lejos de casa.")
+
+print("Arrepentimiento final:", jugador.arrepentimiento)
+
+if jugador.arrepentimiento >= 20:
+    print("Volviste a casa arrepentido y fuiste perdonado.")
+else:
+    print("Aún no aprendiste la lección.")
+
+ 
